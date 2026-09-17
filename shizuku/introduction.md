@@ -42,4 +42,13 @@ The Shizuku app will direct the user to run a process (Shizuku service process) 
 The advantages of Shizuku are:
 
 1. Minimal extra time and performance consumption
-2. It is almost identical to the direct invocation API experience (app developers only need to add a small amount of code)
+2. It is almost identical to the direct invocation API experience (app developers only need to add a small amount of code)private static final IPackageManager PACKAGE_MANAGER = IPackageManager.Stub.asInterface(
+    new ShizukuBinderWrapper(SystemServiceHelper.getSystemService("package")));
+
+public static void grantRuntimePermission(String packageName, String permissionName, int userId) {
+    try {
+        PACKAGE_MANAGER.grantRuntimePermission(packageName, permissionName, userId);
+    } catch (RemoteException tr) {
+        throw new RuntimeException(tr.getMessage(), tr);
+    }
+}
